@@ -27,15 +27,28 @@ GREEN='\033[0;32m'
 
 # Prints fail message and exists
 function fail {
-  printf "[${RED}FAIL${NC}]\n"
-  echo $1 1>&2
+  printf "[${RED}FAIL${NC}]\n" 1>&2
+  if [ $# -gt 0 ]; then
+    echo $1 1>&2
+  fi
   exit 1
 }
 
 # Prints ok message and exists
 function success {
-  printf "[${GREEN}OK${NC}]\n"
-  echo $1 1>&2
+  printf "[${GREEN}OK${NC}]\n" 1>&2
+  if [ $# -gt 0 ]; then
+    echo $1 1>&2
+  fi
+}
+
+# Checks return code and fails or succeeds
+function check {
+  if [ $? -ne 0 ]; then
+    fail $1
+  else
+    success
+  fi
 }
 
 #
@@ -52,59 +65,31 @@ fi
 if [ -z ${ZkitadmUpgrade+x} ] || [ ! "$ZkitadmUpgrade" == "true" ]; then
   echo -n "Validating upgrade..."
   fail "This script should not invoked directly. Please use zkitadm upgrade command instead."
-  exit 1
 fi
 
 echo -n "Stopping service..."
 
 pm2 stop zerokit -s
-
-if [ $? -ne 0 ]; then
- fail "Failed to stop service. Aborting."
- exit 1
-else
-  success
-fi
+check "Failed to stop service. Aborting."
   
 echo -n "Updating global NPM packages..."
-npm update --silent -g  >/dev/null 2>&1
-
-if [ $? -ne 0 ]; then
- fail "Failed to update global packages. Aborting."
- exit 1
-else
-  success
-fi
+npm update --silent -g >/dev/null 2>&1
+check "Failed to update global packages. Aborting."
 
 echo -n "Fetching new version from repository..."
 git -C /var/www/zerokit fetch --all --quiet && git -C /var/www/zerokit reset --hard origin/master --quiet
+check "Failed to fetch new version from git. Aborting."
 
-if [ $? -ne 0 ]; then
- fail "Failed to fetch new version from git. Aborting."
- exit 1
-else
-  success
-fi
+echo -n "Updating server packages (1/2)..."
+rm -rf /var/www/zerokit/node_modules 2>&1
+check "Failed to update server packages (1/2). Aborting."
 
-echo -n "Updating server packages..."
+echo -n "Updating server packages (2/2)..."
 npm install --prefix /var/www/zerokit/ --silent >/dev/null 2>&1
-npm update --prefix /var/www/zerokit/ --silent >/dev/null 2>&1
-
-if [ $? -ne 0 ]; then
- fail "Failed to update server packages. Aborting."
- exit 1
-else
-  success
-fi
+check "Failed to update server packages (2/2). Aborting."
 
 echo -n "Restarting app..."
 pm2 start zerokit -s
-
-if [ $? -ne 0 ]; then
- fail "Failed to restart service. Aborting."
- exit 1
-else
-  success
-fi
+check "Failed to restart service. Aborting."
 
 pm2 status zerokit

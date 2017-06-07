@@ -27,15 +27,28 @@ GREEN='\033[0;32m'
 
 # Prints fail message and exists
 function fail {
-  printf "[${RED}FAIL${NC}]\n"
-  echo $1 1>&2
+  printf "[${RED}FAIL${NC}]\n" 1>&2
+  if [ $# -gt 0 ]; then
+    echo $1 1>&2
+  fi
   exit 1
 }
 
 # Prints ok message and exists
 function success {
-  printf "[${GREEN}OK${NC}]\n"
-  echo $1 1>&2
+  printf "[${GREEN}OK${NC}]\n" 1>&2
+  if [ $# -gt 0 ]; then
+    echo $1 1>&2
+  fi
+}
+
+# Checks return code and fails or succeeds
+function check {
+  if [ $? -ne 0 ]; then
+    fail $1
+  else
+    success
+  fi
 }
 
 # Prints help screen
@@ -64,17 +77,11 @@ function upgrade {
   then
     exit 1;
   fi
-  
+
   echo -n "Updating management scripts from repository..."
   git -C /opt/zerokit fetch --all --quiet && git -C /opt/zerokit reset --hard origin/master --quiet
-  
-  if [ $? -ne 0 ]; then
-   fail "Failed to fetch management scripts from git. Aborting."
-   exit 1
-  else
-	success
-  fi
-  
+  check "Failed to fetch management scripts from git. Aborting."
+
   ZkitadmUpgrade="true" /opt/zerokit/zkitadm/upgrade.sh
 }
 
@@ -86,48 +93,24 @@ function update {
   then
     exit 1;
   fi
-  
+
   echo -n "Stopping service..."
-  
+
   pm2 stop zerokit -s
-  
-  if [ $? -ne 0 ]; then
-   fail "Failed to stop service. Aborting."
-   exit 1
-  else
-	success
-  fi
-    
+  check "Failed to stop service. Aborting."
+
   echo -n "Updating global NPM packages..."
   npm update --silent -g  >/dev/null 2>&1
-  
-  if [ $? -ne 0 ]; then
-   fail "Failed to update global packages. Aborting."
-   exit 1
-  else
-	success
-  fi
-  
+  check "Failed to update global packages. Aborting."
+
   echo -n "Updating server packages..."
   npm update --prefix /var/www/zerokit/ --silent >/dev/null 2>&1
-  
-  if [ $? -ne 0 ]; then
-   fail "Failed to update server packages. Aborting."
-   exit 1
-  else
-	success
-  fi
-  
+  check "Failed to update server packages. Aborting."
+
   echo -n "Restarting app..."
   pm2 start zerokit -s
-  
-  if [ $? -ne 0 ]; then
-   fail "Failed to restart service. Aborting."
-   exit 1
-  else
-	success
-  fi
-  
+  check "Failed to restart service. Aborting."
+
   pm2 status zerokit
 }
 

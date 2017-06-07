@@ -16,37 +16,37 @@
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root. Aborting." 1>&2
-   sudo su
+   exit 1
 fi
 
 # Update
-apt update
-apt upgrade
+apt update -y 
+apt upgrade -y 
 
 # Install nodejs
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 apt install -y nodejs
 
 # Install Nginx
-apt install nginx
+apt install -y nginx
 
 # Install git
-apt install git
+apt install -y git
 
 # Install lsb-release 
-apt install lsb-release
+apt install -y lsb-release
 
 # Install figlet to enable ASCII art
-apt install figlet
+apt install -y figlet
 
 # Install update-motd software
-apt install update-motd
+apt install -y update-motd
 
 # Install mongo
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
 echo "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
 apt update
-apt install mongodb-org
+apt install -y mongodb-org
 systemctl start mongod
 systemctl enable mongod
 
@@ -84,9 +84,8 @@ pm2 startup
 pm2 save
 
 # Setup MOTD generator
-rm -r /etc/update-motd.d/
-mkdir /etc/update-motd.d/
-ls -n /opt/zerokit/.config/motd/* /etc/update-motd.d/
+rm -rf /etc/update-motd.d/*
+ln -s /opt/zerokit/.config/motd/* /etc/update-motd.d/
 rm /etc/motd.dynamic
 
 # Deprovision VM
