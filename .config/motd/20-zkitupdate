@@ -19,8 +19,7 @@
 #    with this program; if not, write to the Free Software Foundation, Inc.,
 #    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-curl https://api.github.com/repos/tresorit/ZeroKit-NodeJs-backend-sample/git/refs/heads/master --max-time 2 2>&1 | grep -s "\"sha\":" | grep -q -v $(git -C /var/www/zerokit/ rev-parse HEAD 2>&1) && echo "Backend sample can be updated, please use 'zkitadm upgrade' command"
-curl https://api.github.com/repos/tresorit/ZeroKit-Azure-marketplace-vm/git/refs/heads/master --max-time 2 2>&1 | grep -s "\"sha\":" | grep -q -v $(git -C /opt/zerokit/ rev-parse HEAD 2>&1) && echo "Zkitadm utility can be updated, please use 'zkitadm upgrade' command"
+zkitadm check
 
 exit 0
 

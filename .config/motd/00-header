@@ -30,10 +30,7 @@ if [ -z "$DISTRIB_DESCRIPTION" ] && [ -x /usr/bin/lsb_release ]; then
         DISTRIB_DESCRIPTION=$(lsb_release -s -d)
 fi
 
-figlet -c -f standard "ZeroKit" &&  figlet -c -f term "by Tresorit "
-printf "\n"
-figlet -c -f term "ZeroKit sample backend project " && figlet -c -f term "https://github.com/tresorit/ZeroKit-Azure-marketplace-vm "
-printf "\n"
+zkitadm logo
 
 printf "Welcome to %s (%s).\n" "$DISTRIB_DESCRIPTION" "$(uname -r)"
 printf "\n"
