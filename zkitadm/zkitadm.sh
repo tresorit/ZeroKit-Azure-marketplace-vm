@@ -43,7 +43,7 @@ EOF
 )
 }
 
-function check {
+function checkupdate {
   main_api="${MAIN_REPO/"github.com"/"api.github.com/repos"}/git/refs/heads/master"
   admin_api="${ADMIN_REPO/"github.com"/"api.github.com/repos"}/git/refs/heads/master"
   
@@ -68,7 +68,7 @@ function upgrade {
 }
 
 function logo {
-  figlet -c -f standard "$LOGO_TEXT " &&  figlet -c -f term "$LOGO_SUBTEXT "}
+  figlet -c -f standard "$LOGO_TEXT" &&  figlet -c -f term "$LOGO_SUBTEXT"
   printf "\n"
   figlet -c -f term "$PROJECT_NAME " && figlet -c -f term "$PROJECT_PAGE "
   printf "\n"
@@ -144,7 +144,7 @@ case "$1" in
     config
 	;;
   check)
-    check
+    checkupdate
     ;;
   update)
 	update

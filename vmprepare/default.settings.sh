@@ -24,5 +24,5 @@ export LOGO_TEXT="ZeroKit"
 export LOGO_SUBTEXT="by Tresorit"
 
 # Project
-export PROJECT_NAME="ZeroKit sample backend project "
-export PROJECT_PAGE="https://github.com/tresorit/ZeroKit-Azure-marketplace-v "
+export PROJECT_NAME="ZeroKit sample backend project"
+export PROJECT_PAGE="https://github.com/tresorit/ZeroKit-Azure-marketplace-vm"
