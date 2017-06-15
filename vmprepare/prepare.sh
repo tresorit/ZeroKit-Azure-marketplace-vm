@@ -42,14 +42,8 @@ apt install -y nginx
 # Install git
 apt install -y git
 
-# Install lsb-release 
-apt install -y lsb-release
-
-# Install figlet to enable ASCII art
-apt install -y figlet
-
-# Install update-motd software
-apt install -y update-motd
+# Install lsb-release, figlet to enable ASCII art and update-motd software
+apt install -y lsb-release figlet update-motd
 
 # Install mongo
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6
@@ -62,7 +56,7 @@ systemctl enable mongod
 # Setup Iptables
 ufw allow 'Nginx HTTP'
 ufw allow 'OpenSSH'
-ufw enable
+ufw --force enable
 
 # Pull zeroKit sample backend
 mkdir -p /var/www/zerokit
@@ -96,7 +90,7 @@ pm2 save
 
 # Setup MOTD generator
 rm -rf /etc/update-motd.d/*
-ln -s "/opt/zerokit/admintools/.config/motd/*" /etc/update-motd.d/
+ln -s /opt/zerokit/admintools/.config/motd/* /etc/update-motd.d/
 rm -f /etc/motd.dynamic
 
 # Deprovision VM
