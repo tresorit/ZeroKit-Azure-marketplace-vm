@@ -97,11 +97,11 @@ function update {
   check "Failed to stop service. Aborting."
 
   echo -n "Updating global NPM packages..."
-  npm update --silent >/dev/null 2>&1
+  njspkg-update-global
   check "Failed to update global packages. Aborting."
 
   echo -n "Updating server packages..."
-  npm update --prefix /var/www/zerokit --silent >/dev/null 2>&1
+  njspkg-update-app /var/www/zerokit
   check "Failed to update server packages. Aborting."
 
   echo -n "Restarting app..."

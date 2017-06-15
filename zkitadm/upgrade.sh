@@ -46,7 +46,7 @@ pm2 stop zerokit -s
 check "Failed to stop service. Aborting."
   
 echo -n "Updating global NPM packages..."
-npm update --silent -g >/dev/null 2>&1
+njspkg-update-global
 check "Failed to update global packages. Aborting."
 
 echo -n "Fetching new version from repository..."
@@ -54,11 +54,11 @@ git -C /var/www/zerokit fetch --all --quiet && git -C /var/www/zerokit reset --h
 check "Failed to fetch new version from git. Aborting."
 
 echo -n "Updating server packages (1/2)..."
-rm -rf "/var/www/zerokit/node_modules" 2>&1
+rm -rf /var/www/zerokit/node_modules 2>&1
 check "Failed to update server packages (1/2). Aborting."
 
 echo -n "Updating server packages (2/2)..."
-npm install --prefix /var/www/zerokit --silent >/dev/null 2>&1
+njspkg-install-app /var/www/zerokit
 check "Failed to update server packages (2/2). Aborting."
 
 echo -n "Restarting app..."

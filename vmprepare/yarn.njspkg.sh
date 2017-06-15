@@ -41,9 +41,9 @@ function njspkg-update-app {
 }
 
 function njspkg-install-global {
-	npm global install $1 --silent >/dev/null 2>&1
+	yarn global add $1 --silent >/dev/null 2>&1
 }
 
 function njspkg-update-global {
-	npm global update --silent >/dev/null 2>&1
+	yarn global upgrade --silent >/dev/null 2>&1
 }
