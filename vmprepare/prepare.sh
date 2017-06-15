@@ -36,6 +36,12 @@ apt upgrade -y
 curl -sL https://deb.nodesource.com/setup_7.x | bash -
 apt install -y nodejs
 
+# Install YARN
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+apt update
+apt install yarn
+
 # Install Nginx
 apt install -y nginx
 
@@ -58,33 +64,37 @@ ufw allow 'Nginx HTTP'
 ufw allow 'OpenSSH'
 ufw --force enable
 
+# Pull repository for management utils
+mkdir -p /opt/zerokit/admintools
+git clone https://github.com/tresorit/ZeroKit-Azure-marketplace-vm /opt/zerokit/admintools
+
+ln -s /opt/zerokit/admintools/zkitadm/zkitadm.sh /usr/bin/zkitadm
+ln -s /opt/zerokit/admintools/vmprepare/default.settings.sh /opt/zerokit/settings.sh
+ln -s /opt/zerokit/admintools/vmprepare/yarn.njspkg.sh /opt/zerokit/njspkg.sh
+
+# Copy default settings from pulled repo
+cat /opt/zerokit/admintools/.config/zerokit/config.json > /etc/zerokit/config.json
+cat /opt/zerokit/admintools/.config/nginx/default > /etc/nginx/sites-enabled/default
+
+# Load njspkg
+source /opt/zerokit/njspkg.sh
+
 # Pull zeroKit sample backend
 mkdir -p /var/www/zerokit
 git clone https://github.com/tresorit/ZeroKit-NodeJs-backend-sample.git /var/www/zerokit
 cd /var/www/zerokit
-npm install
+njspkg-install-app /var/www/zerokit
 
 # Link config file
 mkdir -p /etc/zerokit
-ln -s "/var/www/zerokit/config.json" "/etc/zerokit/config.json"
-
-# Pull repository for management utils
-mkdir -p "/opt/zerokit/admintools"
-git clone https://github.com/tresorit/ZeroKit-Azure-marketplace-vm "/opt/zerokit/admintools"
-
-ln -s "/opt/zerokit/admintools/zkitadm/zkitadm.sh" /usr/bin/zkitadm
-ln -s "/opt/zerokit/admintools/vmprepare/default.settings.sh" "/opt/zerokit/settings.sh"
-
-# Copy default settings from pulled repo
-cat "/opt/zerokit/admintools/.config/zerokit/config.json" > "/etc/zerokit/config.json"
-cat "/opt/zerokit/admintools/.config/nginx/default" > /etc/nginx/sites-enabled/default
+ln -s /var/www/zerokit/config.json /etc/zerokit/config.json
 
 # Restart services
 systemctl restart nginx
 
 # Install PM2
-npm install pm2@latest -g
-pm2 start "/var/www/zerokit/bin/www" --name zerokit
+njspkg-install-global pm2@latest
+pm2 start /var/www/zerokit/bin/www --name zerokit
 pm2 startup
 pm2 save
 

@@ -24,6 +24,9 @@ source /opt/zerokit/settings.sh
 # Include functions
 source /opt/zerokit/admintools/zkitadm/functions.sh
 
+# Import njspkg
+source /opt/zerokit/njspkg.sh
+
 # Prints help screen
 function help {
 (cat <<EOF
