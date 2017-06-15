@@ -47,8 +47,8 @@ function check {
   main_api="${MAIN_REPO/"github.com"/"api.github.com/repos"}/git/refs/heads/master"
   admin_api="${ADMIN_REPO/"github.com"/"api.github.com/repos"}/git/refs/heads/master"
   
-  curl main_api --max-time 2 2>&1 | grep -s "\"sha\":" | grep -q -v $(git -C /var/www/zerokit rev-parse HEAD 2>&1) && echo "Backend sample can be updated, please use 'zkitadm upgrade' command" ||  if [[ -t 0 || -t 1 ]]; then echo "Backend sample is up-to-date"; fi
-  curl admin_api --max-time 2 2>&1 | grep -s "\"sha\":" | grep -q -v $(git -C /opt/zerokit rev-parse HEAD 2>&1) && echo "Zkitadm utility can be updated, please use 'zkitadm upgrade' command" ||  if [[ -t 0 || -t 1 ]]; then echo "Zkitadm utility is up-to-date"; fi
+  curl $main_api --max-time 2 2>&1 | grep -s "\"sha\":" | grep -q -v $(git -C /var/www/zerokit rev-parse HEAD 2>&1) && echo "Backend sample can be updated, please use 'zkitadm upgrade' command" ||  if [[ -t 0 || -t 1 ]]; then echo "Backend sample is up-to-date"; fi
+  curl $admin_api --max-time 2 2>&1 | grep -s "\"sha\":" | grep -q -v $(git -C /opt/zerokit/admintools rev-parse HEAD 2>&1) && echo "Zkitadm utility can be updated, please use 'zkitadm upgrade' command" ||  if [[ -t 0 || -t 1 ]]; then echo "Zkitadm utility is up-to-date"; fi
 }
 
 function upgrade {
