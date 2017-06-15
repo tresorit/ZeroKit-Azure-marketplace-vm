@@ -61,7 +61,7 @@ function upgrade {
   fi
 
   echo -n "Updating management scripts from repository..."
-  git -C "/opt/zerokit/admintools" fetch --all --quiet && git -C "/opt/zerokit/admintools" --hard origin/master --quiet
+  git -C "/opt/zerokit/admintools" fetch --all --quiet && git -C "/opt/zerokit/admintools" reset --hard origin/master --quiet
   check "Failed to fetch management scripts from git. Aborting."
 
   ZkitadmUpgrade="true" "/opt/zerokit/admintools/zkitadm/upgrade.sh"
