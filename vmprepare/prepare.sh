@@ -40,7 +40,7 @@ apt install -y nodejs
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 apt update
-apt install yarn
+apt install -y yarn
 
 # Install Nginx
 apt install -y nginx
@@ -72,10 +72,6 @@ ln -s /opt/zerokit/admintools/zkitadm/zkitadm.sh /usr/bin/zkitadm
 ln -s /opt/zerokit/admintools/vmprepare/default.settings.sh /opt/zerokit/settings.sh
 ln -s /opt/zerokit/admintools/vmprepare/yarn.njspkg.sh /opt/zerokit/njspkg.sh
 
-# Copy default settings from pulled repo
-cat /opt/zerokit/admintools/.config/zerokit/config.json > /etc/zerokit/config.json
-cat /opt/zerokit/admintools/.config/nginx/default > /etc/nginx/sites-enabled/default
-
 # Load njspkg
 source /opt/zerokit/njspkg.sh
 
@@ -89,8 +85,13 @@ njspkg-install-app /var/www/zerokit
 mkdir -p /etc/zerokit
 ln -s /var/www/zerokit/config.json /etc/zerokit/config.json
 
+# Copy default settings from pulled repo
+cat /opt/zerokit/admintools/.config/zerokit/config.json > /etc/zerokit/config.json
+cat /opt/zerokit/admintools/.config/nginx/default > /etc/nginx/sites-enabled/default
+
 # Restart services
 systemctl restart nginx
+systemctl enable nginx
 
 # Install PM2
 njspkg-install-global pm2@latest
