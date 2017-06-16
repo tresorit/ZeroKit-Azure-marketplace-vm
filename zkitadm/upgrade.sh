@@ -49,9 +49,17 @@ echo -n "Updating global NPM packages..."
 njspkg-update-global
 check "Failed to update global packages. Aborting."
 
+echo -n "Backup config files..."
+cp /etc/zerokit/config.json /etc/zerokit/config.json.bak
+check "Config file backup failed. Aborting."
+
 echo -n "Fetching new version from repository..."
 git -C /var/www/zerokit fetch --all --quiet && git -C /var/www/zerokit reset --hard origin/master --quiet
 check "Failed to fetch new version from git. Aborting."
+
+echo -n "Applying settings..."
+cat /etc/zerokit/config.json.bak > /etc/zerokit/config.json
+check "Failed to restore settings. Your setting are at /etc/zerokit/config.json.bak. Aborting."
 
 echo -n "Updating server packages (1/2)..."
 rm -rf /var/www/zerokit/node_modules 2>&1
