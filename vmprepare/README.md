@@ -22,7 +22,7 @@ Internally the image has the followign software installed:
 - **ZeroKit Azure marketplace utility** - wrapper project around sample backend to provide provision and management utilities (this project)
 
 The sample backend software is installed in the /var/www/zerokit software. The backend is hosted with NodeJS through PM2 process manager. Internally the public HTTP(S) ports are forwared proxied by Nginx to the NodeJS app. The configuration file is stored in the /var/www/zerokti folder but it is ignored by git and the file itself is symlinked to /etc/zerokit/config.json.
-The management utility is installed at /opt/zerokit. The zkitadm command itself is symlinked from /opt/zerokit/zkitadm/zkitadm.sh to /usr/local/bin/zkitadm for global availability.
+The management utility is installed at /opt/zerokit. The zkitadm command itself is symlinked from /opt/zerokit/admintools/zkitadm/zkitadm.sh to /usr/local/bin/zkitadm for global availability.
 
 If you want to use HTTPS (SSL), then you have to edit Nginx's config at /etc/nginx/sites-enabled/default. You will also need a proper certificate for it.
 

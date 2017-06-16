@@ -79,7 +79,7 @@ function logo {
 
 function config {
   editor "/etc/zerokit/config.json"
-  echo "The service have to be restarted to read new settings. Please use \"zkitadm restart\" command"
+  echo "The service has to be restarted to read new settings. Please use \"zkitadm restart\" command"
 }
 
 function update {

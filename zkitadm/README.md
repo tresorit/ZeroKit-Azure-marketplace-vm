@@ -57,7 +57,7 @@ Config command will open the ZeroKit sample backend's config file for editing wi
 ```bash
 > zkitadm config
 
-The service have to be restarted to read new settings. Please use "zkitadm restart" command.
+The service has to be restarted to read new settings. Please use "zkitadm restart" command.
 ```
 
 ### Logs
@@ -104,6 +104,16 @@ Will print the last logs and start to stream the new ones. You may exit streamin
 [STREAMING] Now streaming realtime logs for [zerokit] process
 ```
 
+## Check
+Checks if the backend or the administrative software can be updated.
+
+```bash
+> zkitadm check
+
+Backend sample is up-to-date
+Zkitadm utility can be updated, please use 'zkitadm upgrade' command
+```
+
 ### Start
 Starts the backend service if it was stopped previously.
 
@@ -136,7 +146,7 @@ Stops the backend service if it was running.
 ```
 
 ### Restart
-Stops the backend service if it was running.
+Restarts the backend service if it was running.
 
 ```bash
 > zkitadm restart
@@ -151,7 +161,7 @@ Use --update-env to update environment variables
 ```
 
 ### Update
-Updates NPM packages used by the server. This command have to be confirmed.
+Updates NPM packages used by the server. This command has to be confirmed.
 
 **Note:** This command will stop the backend service before update and restart it after. This may caues 1-2 minutes of service interruption.
 
@@ -177,7 +187,7 @@ Restarting app[OK]
 ### Upgrade
 Updates zkit adm utility and NPM, then upgrades server software fromt he global git repository. (update followed by software update).
 
-**Note:** This command will stop the backend service before update and restart it after. This may caues 1-2 minutes of service interruption.
+**Note:** This command will stop the backend service before update and restart it after. This may cause 1-2 minutes of service interruption.
 
 ```bash
 > zkitadm upgrade

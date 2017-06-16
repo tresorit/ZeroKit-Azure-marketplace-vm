@@ -37,7 +37,7 @@ rootcheck
 # Check if script was called from zkitadm
 if [ -z ${ZkitadmUpgrade+x} ] || [ ! "$ZkitadmUpgrade" == "true" ]; then
   echo -n "Validating upgrade..."
-  fail "This script should not invoked directly. Please use zkitadm upgrade command instead."
+  fail "This script should not be invoked directly. Please use zkitadm upgrade command instead."
 fi
 
 echo -n "Stopping service..."
