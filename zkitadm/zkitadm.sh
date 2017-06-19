@@ -44,6 +44,10 @@ Commands :
   config  - Opens configuration file for editing
 EOF
 )
+
+if [ -e "/opt/zerokit/realm.zkitadm.sh" ]; then
+  echo "  realm <command> - Realm object server management"
+fi
 }
 
 function checkupdate {
@@ -111,6 +115,15 @@ function update {
   pm2 status zerokit
 }
 
+function realm {
+ if [ ! -e "/opt/zerokit/realm.zkitadm.sh" ]; then
+	help
+	exit 1
+ fi
+
+ /opt/zerokit/realm.zkitadm.sh $1
+}
+
 # Make sure only root can run our script
 rootcheck
 
@@ -154,6 +167,9 @@ case "$1" in
 	;;
   upgrade)
 	upgrade
+	;;
+  realm)
+	realm $2
 	;;
   *)
 	help
