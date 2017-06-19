@@ -46,7 +46,7 @@ EOF
 }
 
 function checkupdate {
-  apt-get -s upgrade | awk '/^Inst/ { print $2 }' | grep "^realm-object-server-developer$" && echo "Realm Object server can be updated. Please run 'zkitadm realm upgrade' command" || if [[ -t 0 || -t 1 ]]; then echo "Realm object sever is up-to-date"
+  apt-get -s upgrade | awk '/^Inst/ { print $2 }' | grep "^realm-object-server-developer$" && echo "Realm Object server can be updated. Please run 'zkitadm realm upgrade' command" || if [[ -t 0 || -t 1 ]]; then echo "Realm object sever is up-to-date"; fi
 }
 
 function upgrade {
