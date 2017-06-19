@@ -80,7 +80,7 @@ auth:
     ## - The 'password' provider is required for the dashboard to work. It supports
     ##   authentication through username/password and uses a PBKDF2 implementation.
 
-	# This enables login via ZeroKit's secure identity provider
+    # This enables login via ZeroKit's secure identity provider
     custom/zerokit:
       # The client ID of the IDP client created for the Realm object server
       # on ZeroKit management portal (https://manage.tresori.io)
@@ -196,15 +196,15 @@ proxy:
   http:
     ## Whether or not to enable the HTTP proxy module. It enables multiplexing requests
     ## by forwarding incoming requests on a single port to all services.
-    # enable: true
+    enable: true
 
     ## The address/interface on which the HTTP proxy module should listen. This defaults
     ## to 127.0.0.1. If you wish to listen on all available interfaces,
     ## uncomment the following line.
-    listen_address: '::'
+    listen_address: '0.0.0.0'
 
     ## The port that the HTTP proxy module should bind to.
-    # listen_port: 9080
+    listen_port: 9080
 
   https:
     ## Whether or not to enable the HTTPS proxy module. It enables multiplexing requests

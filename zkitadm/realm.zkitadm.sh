@@ -38,6 +38,7 @@ Commands :
   restart - Restarts hosting process
   stop    - Stops service
   start   - Starts service
+  logs    - Prints live log stream
   check   - Checks whether service can be updated with aptitude package manager
   upgrade - Upgrades service by aptitude package manager
   config  - Opens configuration file for editing
@@ -59,7 +60,7 @@ function upgrade {
   fi
 
   echo -n "Updating Realm object server..."
-  apt-get --only-upgrade install -q -y realm-object-server-developer
+  apt-get --only-upgrade install -q -y realm-object-server-developer 2>&1 >/dev/null
   check "Failed to upgrade Realm object server. Aborting."
 }
 
@@ -93,6 +94,9 @@ case "$1" in
 	;;
   status)
     systemctl status realm-object-server
+	;;
+  logs)
+    tail -n 20 -f /var/log/realm-object-server.log
 	;;
   config)
     config

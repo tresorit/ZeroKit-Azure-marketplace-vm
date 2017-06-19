@@ -1,0 +1,21 @@
+{
+  "baseUrl": "The location where your backend will be hosted (http://{public-ip-of-your-vm})",
+  "appOrigins": ["A list of origins for CORS control (sample app: http://localhost:3002)"],
+  "zeroKit": {
+    "serviceUrl": "ServiceURL as displayed on the portal (something like https://{yourtenantid}.api.tresorit.io)",
+    "adminUserId": "The admin user id as displayed on the portal (admin@{yourtenantid}.tresorit.io)",
+    "adminKey": "The admin key as displayed on the portal (64 char long hexadecimal string)",
+    "sdkVersion": "4",
+    "idp": [
+      {
+        "clientID": "The id of an idp client accepted by this backend",
+        "clientSecret": "The secret of the idp client"
+      },
+      {
+        "clientID": "The client id of another idp client accepted by this backend",
+        "callbackURL": "Optionally you can set the callback url explicitly (required for mobile)",
+        "clientSecret": "Another client secret"
+      }
+    ]
+  }
+}

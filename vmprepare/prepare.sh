@@ -44,6 +44,8 @@ apt install -y yarn
 
 # Install Nginx
 apt install -y nginx
+systemctl enable nginx
+systemctl start nginx
 
 # Install git
 apt install -y git
@@ -77,7 +79,7 @@ source /opt/zerokit/njspkg.sh
 
 # Pull zeroKit sample backend
 mkdir -p /var/www/zerokit
-git clone https://github.com/tresorit/ZeroKit-NodeJs-backend-sample.git /var/www/zerokit
+git clone $MAIN_REPO /var/www/zerokit
 cd /var/www/zerokit
 njspkg-install-app /var/www/zerokit
 
@@ -91,7 +93,6 @@ cat /opt/zerokit/admintools/.config/nginx/default > /etc/nginx/sites-enabled/def
 
 # Restart services
 systemctl restart nginx
-systemctl enable nginx
 
 # Install PM2
 njspkg-install-global pm2@latest

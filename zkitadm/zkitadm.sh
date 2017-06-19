@@ -38,6 +38,7 @@ Commands :
   restart - Restarts hosting process
   stop    - Stops service
   start   - Starts service
+  logs    - Prints live log stream
   check   - Checks if the software can be updated
   update  - Updates NPM packages used by the server
   upgrade - Upgrades service from original git repository

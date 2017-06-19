@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Settings Azure marketplace image
+# Settings Azure marketplace image with Realm object server
 # 
 # Prerequisites:
 # Must be run on an Azure VM
