@@ -1,6 +1,8 @@
 # ZeroKit sample backend for Azure marketplace
 This is a small, easy-to-install VM for Azure marketplace. The VM self-hosts a ZeroKit sample backend along with its database and management utility. After a minimal configuration it can be used to quickly start the development with ZeroKit.
 
+**Notes for mobile developers:** This VM is also available with Realm mobile database instead of MongoDB and an integrated Realm Object Server for mobile development. [Please click here to read the documentation of the Realm edition of this VM.](https://github.com/tresorit/ZeroKit-Azure-marketplace-vm/blob/master/REALM.README.md)
+
 **Warning:** This VM is created only for development and evaluation purposes. It does not create or install any HTTPS certificates, and not suitable for scaling-out (installing on clusters of multiple VMs).
 If you want to use the sample server as the base of your production code, then we highly recommend to use our [Azure one click installation project](https://github.com/tresorit/ZeroKit-Azure-backend-sample). That uses the same sample server code, but installs it into Azure cloud as a scaleable web application with an SSL certificate issued by Microsoft.
 
@@ -18,7 +20,7 @@ After instantiation has completed, please copy public ip address of your newly c
 
 ![Azure VM dashboard](https://github.com/tresorit/ZeroKit-Azure-marketplace-vm/raw/master/.images/azure-vm-dashboard.PNG)
 
-You can access your Vm through this ip address.
+You can access your VM through this ip address.
 
 To log in to your machine, you should use ssh:
 - From linux use command "ssh {your-vm-user}@{your-vm-id}", and use your password.

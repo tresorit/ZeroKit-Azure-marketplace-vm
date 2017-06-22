@@ -11,6 +11,8 @@ Zkitadm utility has subcommands, like git. The list of the currently available c
   - **restart** - Restarts hosting process
   - **stop** - Stops service
   - **start** - Starts service
+  - **logs** - Prints live log stream
+  - **check** - Checks if the software can be updated
   - **update** - Updates NPM packages used by the server
   - **upgrade** - Upgrades service from original git repository
   - **config** - Opens configuration file for editing
@@ -170,11 +172,8 @@ Updates NPM packages used by the server. This command has to be confirmed.
 This command will update NPM packages and pm2 process manager used by ZeroKit sample app backend.
 Are you sure? y
 Stopping service...[OK]
-
 Updating global NPM packages[OK]
-
 Updating server packages[OK]
-
 Restarting app[OK]
 
 ┌──────────┬────┬──────┬──────┬────────┬─────────┬────────┬─────┬───────────┬──────────┐
@@ -194,15 +193,10 @@ Updates zkit adm utility and NPM, then upgrades server software fromt he global 
 This command will upgrage ZeroKit sample app backend from central git repository.
 Are you sure? y
 Stopping service...[OK]
-
 Updating global NPM packages [OK]
-
 Fetching new version from repository [OK]
-
 Triggering update script [OK]
-
 Updating server packages [OK]
-
 Restarting app[OK]
 
 ┌──────────┬────┬──────┬──────┬────────┬─────────┬────────┬─────┬───────────┬──────────┐
