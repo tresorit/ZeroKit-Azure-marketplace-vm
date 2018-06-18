@@ -1,3 +1,6 @@
+**Notice:** This project is discontinued and no longer maintained nor supported by Tresorit. This repository only exists for archival purposes.
+***
+
 # ZeroKit sample backend for Azure marketplace
 This is a small, easy-to-install VM for Azure marketplace. The VM self-hosts a ZeroKit sample backend along with its database and management utility. After a minimal configuration it can be used to quickly start the development with ZeroKit.
 
